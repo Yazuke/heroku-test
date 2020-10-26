@@ -1,0 +1,33 @@
+<section class="clock-manager">
+    <UserInfoBox/>
+    <div id="body">
+        <div id="head">
+            <h1>Clock Manager</h1>
+            <span id="date">{{ actualDate }}</span>
+        </div>
+        <div id="pointage" v-if="lastClockInVisible">
+            <h2>Last Clock In :</h2>
+            <span>{{ lastClockIn }}</span>
+        </div>
+        <div id="foot">
+            <div v-on:click="clock()" class="btn-wrapper">
+                <div class="btn-wrapper__container">
+                    <div class="btn-inner">
+                        <a id="button" class="btn-inner__text">{{ textClockButton }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <md-snackbar md-position="left" :md-duration=4000 :md-active.sync="showSnackbar">
+            <span>{{ messageSnackBar }}</span>
+        </md-snackbar>
+        <router-link :to="'/user/' + $route.params.userId">
+            <md-button class="md-icon-button" style="position: absolute; right: 40px; top: 25px">
+                <md-icon style="font-size: 60px !important;">
+                    clear
+                </md-icon>
+            </md-button>
+        </router-link>
+    </div>
+
+</section>

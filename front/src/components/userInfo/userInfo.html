@@ -1,0 +1,33 @@
+<section class="user-info">
+    <div>
+        <UserInfoBox/>
+        <div id="nav">
+            <md-card class="nav_card">
+                <div v-on:click="$router.push('/chartManager/' + currentUser.id)" class="clickingDiv">
+                    <md-icon class="icon_card">timeline</md-icon>
+                    <h1>Charts</h1>
+                </div>
+            </md-card>
+            <md-card class="nav_card">
+                <div v-on:click="$router.push('/workingtimes/' + currentUser.id)" class="clickingDiv">
+                    <md-icon class="icon_card">hourglass_full</md-icon>
+                    <h1>Workingtime</h1>
+                </div>
+            </md-card>
+            <md-card class="nav_card">
+                <div v-on:click="$router.push('/clockManager/' + currentUser.id)" class="clickingDiv">
+                    <md-icon class="icon_card">schedule</md-icon>
+                    <h1>Clocking</h1>
+                </div>
+            </md-card>
+        </div>
+        <router-link :to="'/users/'">
+            <md-button class="md-icon-button" style="position: absolute; right: 40px; top: 25px">
+                <md-icon style="font-size: 40px !important;">
+                    logout
+                </md-icon>
+            </md-button>
+        </router-link>
+    </div>
+</section>
+

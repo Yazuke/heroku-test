@@ -1,0 +1,56 @@
+<section class="workingTimes">
+    <UserInfoBox/>
+    <div>
+        <md-table>
+            <md-table-row>
+                <md-table-head>Id</md-table-head>
+                <md-table-head>Start</md-table-head>
+                <md-table-head>End</md-table-head>
+            </md-table-row>
+            <md-table-row v-for="line in info">
+                <md-table-cell>{{line.id}}</md-table-cell>
+                <md-table-cell>{{line.start | formatMoment}}</md-table-cell>
+                <md-table-cell>{{line.end | formatMoment}}</md-table-cell>
+                <md-table-cell md-label="Action">
+                    <router-link :to="'/workingtime/' + userId + '/' + line.id">
+                        <md-button class="md-raised md-primary">
+                                <md-icon>settings</md-icon>
+                        </md-button>
+                    </router-link>
+                </md-table-cell>
+            </md-table-row>
+        </md-table>
+        <md-button class="md-fab md-primary" v-on:click="createWorkingTimeRequested()"><md-icon>add</md-icon></md-button>
+        <router-link :to="'/user/' + userId">
+            <md-button class="md-icon-button" style="position: absolute; right: 40px; top: 25px">
+                <md-icon style="font-size: 60px !important;">
+                    clear
+                </md-icon>
+            </md-button>
+        </router-link>
+    </div>
+
+    <md-dialog :md-active.sync="dialogOpen">
+        <md-dialog-title>{{dialogTitle}}</md-dialog-title>
+        <div style="display: flex; justify-content: center; align-items: center; width: 50vw; height: 50vh">
+            <div style="margin-right: 10%">
+                <label>Start</label>
+                <datetime type="datetime" v-model="dialogWorkingTimeInfo.start"/>
+            </div>
+            <div>
+                <label>End</label>
+                <datetime type="datetime" v-model="dialogWorkingTimeInfo.end"/>
+            </div>
+        </div>
+        <div>
+            <md-dialog-actions>
+                <md-button class="md-primary" @click="createWorkingTime()">Save</md-button>
+                <md-button class="md-primary" @click="dialogOpen = false">Cancel</md-button>
+            </md-dialog-actions>
+        </div>
+    </md-dialog>
+
+    <md-snackbar md-position="left" :md-duration=4000 :md-active.sync="snackBarOpen" md-persistent class="success">
+        <span>{{snackBarMessage}}</span>
+    </md-snackbar>
+</section>

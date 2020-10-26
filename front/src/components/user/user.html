@@ -1,0 +1,54 @@
+<section class="user">
+    <div>
+        <md-table v-model="users.data" md-sort="id" md-sort-order="asc" md-card md-fixed-header class="user_table">
+            <md-table-toolbar>
+                <h1 class="md-title">User List</h1>
+            </md-table-toolbar>
+
+            <md-table-row slot="md-table-row" slot-scope="{ item }">
+                <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+                <md-table-cell md-label="Name" md-sort-by="name">{{ item.username }}</md-table-cell>
+                <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
+                <md-table-cell md-label="Action">
+                    <router-link :to="'/user/' + item.id">
+                        <md-button class="md-raised md-primary">
+                            <md-icon>login</md-icon>
+                        </md-button>
+                    </router-link>
+                    <md-button class="md-raised md-primary" v-on:click="editUser(item.id, item.email, item.username)">
+                        <md-icon>edit</md-icon>
+                    </md-button>
+                    <md-button class="md-raised md-accent" v-on:click="deleteUser(item.id)">
+                        <md-icon>delete</md-icon>
+                    </md-button>
+                </md-table-cell>
+            </md-table-row>
+        </md-table>
+    </div>
+    <md-button class="md-fab md-primary" v-on:click="createUser()">
+        <md-icon>add</md-icon>
+    </md-button>
+    <md-snackbar md-position="left" :md-duration=4000 :md-active.sync="showSnackbar" md-persistent class="success">
+        <span>{{ messageSnackBar }}</span>
+    </md-snackbar>
+    <md-dialog :md-active.sync="showDialog">
+        <div class="container_card">
+            <md-dialog-title>{{ messageTitleDialog }}</md-dialog-title>
+
+            <md-field>
+                <label>Username</label>
+                <md-input v-model="userSelectInfo.username"></md-input>
+            </md-field>
+
+            <md-field>
+                <label>Email</label>
+                <md-input v-model="userSelectInfo.email"></md-input>
+            </md-field>
+        </div>
+        <md-dialog-actions>
+            <md-button class="md-primary" @click="showDialog = false">Close</md-button>
+            <md-button class="md-primary" @click="isCreating?requestCreatingUser():requestEditUser()">Save</md-button>
+        </md-dialog-actions>
+    </md-dialog>
+</section>
+

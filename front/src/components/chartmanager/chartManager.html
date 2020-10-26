@@ -1,0 +1,32 @@
+<section class="chartmanager">
+    <UserInfoBox/>
+    <h1 class="title">ChartManager Component</h1>
+    <md-switch v-model="donut" class="md-primary">Donut chart</md-switch>
+    <md-switch v-model="line" class="md-primary">Line chart</md-switch>
+    <md-switch v-model="bar" class="md-primary">Bar chart</md-switch>
+    <br>
+    <br>
+    <br>
+    <div class="graph_container" v-if="donut">
+        <md-card class="graph_cards">
+            <ChartDonut/>
+        </md-card>
+    </div>
+    <div class="graph_container" v-if="bar">
+        <md-card class="graph_cards">
+            <ChartBar/>
+        </md-card>
+    </div>
+    <div class="graph_container" v-if="line">
+        <md-card class="graph_cards">
+            <ChartLine/>
+        </md-card>
+    </div>
+    <router-link :to="'/user/' + userId">
+        <md-button class="md-icon-button" style="position: absolute; right: 40px; top: 25px">
+            <md-icon style="font-size: 60px !important;">
+                clear
+            </md-icon>
+        </md-button>
+    </router-link>
+</section>

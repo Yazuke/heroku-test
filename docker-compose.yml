@@ -1,0 +1,46 @@
+version: '3.2'
+
+services:
+  api:
+    build: ./api
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: time_api
+      PGPORT: 5432
+      PGHOST: db
+    restart: always
+    ports:
+      - "4000:4000"
+    depends_on:
+      - db
+    networks:
+      - api
+
+  front:
+    build: ./front
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api
+
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: time_api_dev
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - api
+
+volumes:
+  pgdata:
+
+networks:
+  api:
